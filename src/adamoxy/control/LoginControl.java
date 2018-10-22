@@ -10,6 +10,18 @@ import adamoxy.database.*;
  * @author adam
  */
 public class LoginControl {
+//
+//    public static void main(String[] args) {
+//        UsersInfo uinfo = new UsersInfo();
+//
+//        uinfo.setUsername("ahmed");
+//        uinfo.setEmail("ahmed@hotmail.com");
+//        uinfo.setPassword("123");
+//        uinfo.setStatus("active");
+//        uinfo.setRolid(2);
+//        System.out.println(LoginControl.inserUser(uinfo));
+//
+//    }
 
     public static UsersInfo CheckLogin(String username, String password) {
 

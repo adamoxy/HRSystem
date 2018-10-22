@@ -68,8 +68,10 @@ public class log {
 
             // Write into log file
             FileWriter writer = new FileWriter(fileName, true);
-            writer.write(today.toString() + " : " + eventText + "\n");
+            writer.write("\t"+today.toString() + " : " + eventText + "\n\n");
+            writer.flush();
             writer.close();
+            
 
         } catch (IOException e) {
             System.out.println("Unable to write: " + eventText + ", in log file: " + e.toString());

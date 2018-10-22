@@ -6,9 +6,15 @@ package adamoxy.setget;
  */
 public class EmployeeInfo {
 
-    public String fname, restname, nationality, hireDate, depaprtment, workTime, jobTitle, status;//date
+    public String fname, restname, nationality, hireDate, depaprtment, 
+            workTime, jobTitle, status, fromDate, toDate, note, bankname, branch, account;//date
     public int empno, id;//1,2,3,4
-    public EmployeeDetailsInfo employeeDetails;
+    public EmployeeDetailsInfo empDetails;//EmployeeDetailsInfo : [ id, empno ,address, addressB, phone, phoneB, email, createdAt,NN, DOB, gender ]
+    public SalaryInfo salary;// SalaryInfo : empno,groupId;
+    // public String ;
+    public JobInfo job;
+    public AttachmentInfo attachment;
+    public TempPoJo setget;
 
     public void setId(int id) {
         this.id = id;
@@ -18,7 +24,15 @@ public class EmployeeInfo {
         this.empno = empno;
     }
 
-    public void setFullName(String fname) {
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setFName(String fname) {
         this.fname = fname;
     }
 
@@ -50,6 +64,14 @@ public class EmployeeInfo {
         this.nationality = nationality;
     }
 
+    public void setFromDate(String fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public void setToDate(String toDate) {
+        this.toDate = toDate;
+    }
+
     public int getId() {
         return id;
     }
@@ -58,14 +80,15 @@ public class EmployeeInfo {
         return empno;
     }
 
-    public String getFullName() {
+    public String getFName() {
         return fname;
     }
 
     public String getRestname() {
         return restname;
     }
-   public String getHiredate() {
+
+    public String getHiredate() {
         return hireDate;
     }
 
@@ -89,4 +112,34 @@ public class EmployeeInfo {
         return nationality;
     }
 
+    public String getFromDate() {
+        return fromDate;
+    }
+
+    public String getToDate() {
+        return toDate;
+    }
+    public void setBankname(String bankname) {
+        this.bankname = bankname;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public void setBranch(String branch) {
+        this.branch = branch;
+    }
+
+    public String getBankname() {
+        return bankname;
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public String getBranch() {
+        return branch;
+    }
 }

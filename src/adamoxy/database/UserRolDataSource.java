@@ -13,8 +13,9 @@ import java.util.ArrayList;
  */
 public class UserRolDataSource extends WamyConnection {
 
-//    public static void main(String[] args) {
-//        UserRolDataSource obj = new UserRolDataSource();
+    public static void main(String[] args) {
+        UserRolDataSource obj = new UserRolDataSource();
+        obj.insertNewRol("test two", "this is also just a test");
 //        System.out.println(obj.insertNewRol("new roll","this is new roll for checking the insert process"));
 ////        ArrayList<UserRolInfo> users = obj.getAllRols();
 ////
@@ -24,7 +25,24 @@ public class UserRolDataSource extends WamyConnection {
 ////            System.out.println(list.getRolDescription());
 ////
 ////        }
-//    }
+    }
+    public UserRolInfo getRolById(String id) {
+        UserRolInfo user = new UserRolInfo();
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM rols where id=? ");
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                user.setId(rs.getInt("id"));
+                user.setRolname(rs.getString("name"));
+                user.setRolDescription(rs.getString("description"));
+            }
+
+        } catch (Exception e) {
+            log.writeEvent(e.toString());
+        }
+        return user;
+    }
+
     public ArrayList<UserRolInfo> getAllRols() {
 
         ArrayList<UserRolInfo> users = new ArrayList<>();
@@ -72,13 +90,15 @@ public class UserRolDataSource extends WamyConnection {
 
     public boolean insertNewRol(String rolname, String description) {
         boolean insertFlage = false;
+        String[] returnId = {"id"};
         try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO rols ( id, name,description) VALUES ( default , ? , ?)");
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO rols ( id, name,description) VALUES ( default , ? , ?)", returnId);
 
             statement.setString(1, rolname);
             statement.setString(2, description);
-            
+
             if (statement.executeUpdate() > 0) {
+
                 insertFlage = true;
             }
         } catch (Exception ex) {

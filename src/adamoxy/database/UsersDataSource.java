@@ -110,20 +110,19 @@ public class UsersDataSource extends WamyConnection {
         boolean insertFlage = false;
         userInfo.setPassword(Config.getMD5(userInfo.getPassword()));
         try {
-            //     
             try (PreparedStatement statement = connection.prepareStatement("INSERT INTO users (id, username, email, password, rolid, status,createdAt ) VALUES ( default,?, ?, ?, ?, ? , ?)")) {
                 statement.setString(1, userInfo.getUsername());
                 statement.setString(2, userInfo.getEmail());
                 statement.setString(3, userInfo.getPassword());
                 statement.setInt(4, userInfo.getRolid());
                 statement.setString(5, userInfo.getStatus());
-                statement.setString(6, userInfo.getCreatedAt());
+                statement.setString(6, userInfo.getCreatedAt() );
                 if (statement.executeUpdate() > 0) {
                     insertFlage = true;
                 }
             }
         } catch (Exception ex) {
-            log.writeEvent("Error in UserDataSource --> inserUser: " + ex.toString());
+            log.writeEvent("\tError in UserDataSource --> inserUser: " + ex.toString());
         }
         return insertFlage;
     }
@@ -159,11 +158,11 @@ public class UsersDataSource extends WamyConnection {
             if (statment.executeUpdate() > 0) {
                 flag = true;
             }
-            
+
         } catch (SQLException e) {
-            log.writeEvent("error in UpdateUserPassword ."+e.toString());
-        }catch (Exception ex) {
-            log.writeEvent("error in UpdateUserPassword ."+ex.toString());
+            log.writeEvent("error in UpdateUserPassword ." + e.toString());
+        } catch (Exception ex) {
+            log.writeEvent("error in UpdateUserPassword ." + ex.toString());
         }
         return flag;
     }

@@ -1,4 +1,3 @@
-
 package adamoxy.setget;
 
 /**
@@ -6,13 +5,16 @@ package adamoxy.setget;
  * @author adam
  */
 public class EmployeeDetailsInfo {
-// id empno NN gender address addressB phone phoneB email DOB createdAt
-    // id empno address addressB phone phoneB email CreatedAt
-
+//                //(id,empno,NN,gender,address,addressB,phone,phoneB,email,DOB,createdAt) 
     int id, empno;
-    String address, addressB, phone, phoneB, email, createdAt;
-    String NN, DOB, gender;
+    String address, addressB, phone, phoneB, email, createdAt,NN, DOB, gender,nationalityId;
 
+    public void setNationalityId(String nationalityId){
+        this.nationalityId=nationalityId;
+    }
+    public String getNationalityId(){
+        return nationalityId;
+    }
     public void setId(int id) {
         this.id = id;
     }
@@ -68,6 +70,7 @@ public class EmployeeDetailsInfo {
     public String getCreatedAt() {
         return createdAt;
     }
+
     public void setNN(String NN) {
         this.NN = NN;
     }
@@ -93,9 +96,10 @@ public class EmployeeDetailsInfo {
     }
 
     public void setEmail(String email) {
-    this.email=email;
+        this.email = email;
     }
-    public String getEmail(){
+
+    public String getEmail() {
         return email;
     }
 

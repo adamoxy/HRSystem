@@ -12,11 +12,26 @@ import java.util.ArrayList;
  */
 public class UserRolControle {
 
+    /*
+        public UserRolInfo getRolById(String id) {
+     */
+    public static UserRolInfo getRolById(String id) {
+        UserRolDataSource obj = new UserRolDataSource();
+        UserRolInfo urol = null;
+        try {
+            urol = obj.getRolById(id);
+            
+        } catch (Exception e) {
+            log.writeEvent(e.toString());
+        }
+        return urol;
+    }
+
     /*    public ArrayList<UserRolInfo> getAllRols() {}
      */
     public static ArrayList<UserRolInfo> getAllRols() {
         UserRolDataSource obj = new UserRolDataSource();
-        ArrayList list = null;
+        ArrayList<UserRolInfo> list = null;
         try {
             list = obj.getAllRols();
 
