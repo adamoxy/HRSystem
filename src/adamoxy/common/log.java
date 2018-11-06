@@ -1,10 +1,11 @@
-
 package adamoxy.common;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -68,25 +69,25 @@ public class log {
 
             // Write into log file
             FileWriter writer = new FileWriter(fileName, true);
-            writer.write("\t"+today.toString() + " : " + eventText + "\n\n");
+            writer.write("\t" + today.toString() + " : " + eventText + "\n\n");
             writer.flush();
             writer.close();
-            
 
         } catch (IOException e) {
             System.out.println("Unable to write: " + eventText + ", in log file: " + e.toString());
         }
     }
 
-    public static String getTimeStampDefaultStartDate() {
-        return new SimpleDateFormat("yyyy-MM-dd 00:00:00").format(new Date());
+    public static double dateperiod(String nearerDate, String olderDate) {
+        LocalDate today = LocalDate.now();
+        
+        LocalDate nearDate = LocalDate.parse(nearerDate);
+        LocalDate historyDate = LocalDate.parse(olderDate);
+        Period p = Period.between(historyDate, nearDate);
+        return ChronoUnit.DAYS.between(historyDate, nearDate);
+    }
+    public static void main(String []args){
+        System.out.println(log.dateperiod("2018-11-01", "2018-10-01"));
     }
 
-    public static String getLastimeStamp() {
-        return new SimpleDateFormat("yyyy-MM-dd 23:59:59").format(new Date());
-    }
-
-    public static String gettimeStampformat(String daate) {
-        return new SimpleDateFormat("yyyy-MM-dd 23:59:59").format(new Date());
-    }
 }

@@ -1,4 +1,3 @@
-
 package adamoxy.database;
 
 import java.sql.Connection;
@@ -43,8 +42,10 @@ public class WamyConnection {
                 connection.close();
                 connection = null;
             }
-        } catch (Exception ex) {
+        } catch (SQLException ex) {
             log.writeEvent("Error while disconnect WamyConnection : " + ex.toString());
+        } catch (Exception e) {
+            log.writeEvent("Error while disconnect WamyConnection : " + e.toString());
         }
     }
 

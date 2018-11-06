@@ -5,6 +5,7 @@ import adamoxy.setget.UserRolInfo;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import adamoxy.setget.UsersInfo;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -13,30 +14,17 @@ import java.util.ArrayList;
  */
 public class UserRolDataSource extends WamyConnection {
 
-    public static void main(String[] args) {
-        UserRolDataSource obj = new UserRolDataSource();
-        obj.insertNewRol("test two", "this is also just a test");
-//        System.out.println(obj.insertNewRol("new roll","this is new roll for checking the insert process"));
-////        ArrayList<UserRolInfo> users = obj.getAllRols();
-////
-////        for (UserRolInfo list : users) {
-////            System.out.println(list.getId());
-////            System.out.println(list.getRolname());
-////            System.out.println(list.getRolDescription());
-////
-////        }
-    }
     public UserRolInfo getRolById(String id) {
         UserRolInfo user = new UserRolInfo();
+        String sql = " SELECT * FROM rols where id = ? ";
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM rols where id=? ");
+            PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
                 user.setId(rs.getInt("id"));
                 user.setRolname(rs.getString("name"));
                 user.setRolDescription(rs.getString("description"));
             }
-
         } catch (Exception e) {
             log.writeEvent(e.toString());
         }
@@ -44,13 +32,12 @@ public class UserRolDataSource extends WamyConnection {
     }
 
     public ArrayList<UserRolInfo> getAllRols() {
-
+        String sql = "SELECT * FROM rols";
         ArrayList<UserRolInfo> users = new ArrayList<>();
         UserRolInfo userinfo = null;
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM rols");
+            PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultset = statement.executeQuery();
-
             while (resultset.next()) {
                 userinfo = new UserRolInfo();
                 userinfo.setId(resultset.getInt("id"));
@@ -64,12 +51,12 @@ public class UserRolDataSource extends WamyConnection {
         return users;
     }
 
-    //this will return all user with the spcific role
     public UsersInfo getAllUsersInRoleInfo(int id) {
         ResultSet resultset;
         UsersInfo userinfo = new UsersInfo();
+        String sql = "SELECT * FROM users where rolid= ? ";
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM users where rolid= ? ");
+            PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, id);
             resultset = statement.executeQuery();
             if (resultset.next()) {
@@ -90,34 +77,35 @@ public class UserRolDataSource extends WamyConnection {
 
     public boolean insertNewRol(String rolname, String description) {
         boolean insertFlage = false;
-        String[] returnId = {"id"};
         try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO rols ( id, name,description) VALUES ( default , ? , ?)", returnId);
-
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO rols ( id, name,description) VALUES ( default , ? , ?)");
             statement.setString(1, rolname);
             statement.setString(2, description);
-
             if (statement.executeUpdate() > 0) {
-
                 insertFlage = true;
             }
-        } catch (Exception ex) {
+        } catch (SQLException ex) {
             log.writeEvent("Error in insertNewRol :" + ex.toString());
+        } catch (Exception e) {
+            log.writeEvent("insertNewRol : " + e.toString());
         }
         return insertFlage;
     }
 
     public boolean UpdateRolInfo(String newRolName, int rolId) {
         boolean flag = false;
+        String sql = "UPDATE rols SET name= ?  WHERE id = ? ";
         try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE rols SET name= ?  WHERE id = ? ;");
+            PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, newRolName);
             statement.setInt(2, rolId);
             if (statement.executeUpdate() > 0) {
                 flag = true;
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             log.writeEvent("Error in UpdateRolInfo : " + e.toString());
+        }catch(Exception e){
+         log.writeEvent("UpdateRolInfo : "+e.toString());
         }
         return flag;
     }
@@ -130,8 +118,10 @@ public class UserRolDataSource extends WamyConnection {
             if (statement.executeUpdate() > 0) {
                 flag = true;
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             log.writeEvent("Error in DeleteRol : " + e.toString());
+        }catch(Exception ee){
+            log.writeEvent("DeleteRol"+ee.toString());
         }
         return flag;
     }

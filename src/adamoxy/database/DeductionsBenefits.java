@@ -11,36 +11,6 @@ import java.sql.ResultSet;
  */
 public class DeductionsBenefits extends WamyConnection {
 
-//    public static void main(String args[]) {
-//        DeductionsBenefits obj = new DeductionsBenefits();
-//        try {
-//            String[] deductions = obj.getOnlyDeductions();
-//            String[] benefits = obj.getOnlyBenefits();
-//            String[] loop = obj.getAllDeductionsBenefits();
-////            String[] loop = (String[]) obj.getAllDeductionsBenefits();
-//
-//            System.out.println("all of them together ");
-//            for (String str : loop) {
-//                System.out.print(str + " ");  //Will print the strings in the array that
-//
-//            }
-//            System.out.println();
-//            System.out.println("benefits");
-//            for (String str : benefits) {
-//
-//                System.out.print(str + " ");  //Will print the strings in the array that
-//            }
-//            System.out.println();
-//            System.out.println("deductions");
-//            for (String str : deductions) {
-//                System.out.print(str + " ");  //Will print the strings in the array that
-//            }
-//        } catch (Exception e) {
-//            System.out.println(e.toString());
-//        }
-//
-//    }
-
     public String[] getAllDeductionsBenefits() {
         String[] arr = null;
         int i = 0, x = 0;
@@ -78,7 +48,7 @@ public class DeductionsBenefits extends WamyConnection {
             PreparedStatement ps = connection.prepareStatement("SELECT * from deductions_benefits where sign = '-';");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                arr[i] = (" " + rs.getString("sign") + "" + rs.getString("attribute"));
+                arr[i] = (" " + rs.getString("sign") + " " + rs.getString("attribute"));
                 i++;
             }
         } catch (java.lang.NullPointerException e) {
@@ -102,7 +72,7 @@ public class DeductionsBenefits extends WamyConnection {
             PreparedStatement ps = connection.prepareStatement("SELECT * from deductions_benefits where sign = '+';");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                arr[i] = (" " + rs.getString("sign") + "" + rs.getString("attribute"));
+                arr[i] = (" " + rs.getString("sign") + " " + rs.getString("attribute"));
                 i++;
             }
         } catch (java.lang.NullPointerException e) {

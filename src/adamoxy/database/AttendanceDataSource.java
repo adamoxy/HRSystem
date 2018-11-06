@@ -16,22 +16,20 @@ public class AttendanceDataSource extends WamyConnection {
         ResultSet resultset;
         ArrayList<AttendanceInfo> list = new ArrayList<>();
         try {//id empno isAbsent attendDate
-            String sql = "";
-            if (fromDate.isEmpty() && toDate.isEmpty()) {
-                sql += "SELECT * FROM absence";
-            } else if (!fromDate.isEmpty() && toDate.isEmpty()) {
-                sql += "SELECT * FROM absence where attendDate >= ? ; ";
-            } else if (!fromDate.isEmpty() && !toDate.isEmpty()) {
-                sql += "SELECT * FROM absence where attendDate between ? and ?";
+            String sql = " SELECT * FROM absence ";
+            if (!fromDate.isEmpty() && toDate.isEmpty()|| fromDate.isEmpty() && !toDate.isEmpty()) { //only fromDate param or only toDate param
+                sql += " where attendDate = ? ";
+            } else if (!fromDate.isEmpty() && !toDate.isEmpty()) {// both params fromDate and toDate
+                sql += " where attendDate between ? and ? ";
             }
             PreparedStatement statement = connection.prepareStatement(sql);
-            if (fromDate.isEmpty() && toDate.isEmpty()) {
-                // no need for arguments here 
-            } else if (!fromDate.isEmpty() && toDate.isEmpty()) {
+            if (!fromDate.isEmpty() && toDate.isEmpty()) { // passing fromDate value
                 statement.setString(1, fromDate);
-            } else if (!fromDate.isEmpty() && !toDate.isEmpty()) {
+            } else if (fromDate.isEmpty() && !toDate.isEmpty()) { // passing toDate value
+                statement.setString(1, toDate);
+            } else if (!fromDate.isEmpty() && !toDate.isEmpty()) { // passing Both [ fromDate , toDate ] values 
                 statement.setString(1, fromDate);
-                statement.setString(2, toDate);//statement.setString(2, Config.getMD5(password));
+                statement.setString(2, toDate);
             }
             resultset = statement.executeQuery();
             AttendanceInfo attendancy = null;
@@ -53,44 +51,32 @@ public class AttendanceDataSource extends WamyConnection {
     public ArrayList<AttendanceInfo> getEmployeeAttendance(String empNo, String fromDate, String toDate) {
         AttendanceInfo attendanceinfo = null;
         ArrayList<AttendanceInfo> list = new ArrayList<>();
-        String sql = "";
+        String sql = "SELECT * FROM absence where empno = ?";
         ResultSet rs;
         try {
-            if (fromDate.isEmpty() && toDate.isEmpty()) {
-                sql += "SELECT * FROM absence where empno = ?";
-            } else if (!fromDate.isEmpty() && toDate.isEmpty()) {
-
-                sql += "SELECT * FROM absence where empno= ? and attendDate >= ? ; ";
-
+            if (!fromDate.isEmpty() && toDate.isEmpty() || fromDate.isEmpty() && !toDate.isEmpty()) {
+                sql += " and attendDate >= ? ; ";
             } else if (!fromDate.isEmpty() && !toDate.isEmpty()) {
-
-                sql += "SELECT * FROM absence where empno = ? attendDate between ? and ?";
+                sql += " and attendDate between ? and ?";
             }
             PreparedStatement statement = connection.prepareStatement(sql);
-
-            if (fromDate.isEmpty() && toDate.isEmpty()) {
-
-                statement.setString(1, empNo);
-            } else if (!fromDate.isEmpty() && toDate.isEmpty()) {
-
-                statement.setString(1, empNo);
+            statement.setString(1, empNo);
+            if (!fromDate.isEmpty() && toDate.isEmpty()) { // passing fromDate vale
                 statement.setString(2, fromDate);
-            } else if (!fromDate.isEmpty() && !toDate.isEmpty()) {
-
-                statement.setString(1, empNo);
+            } else if (fromDate.isEmpty() && !toDate.isEmpty()) {// passing toDaet value
+                statement.setString(2, toDate);
+            } else if (!fromDate.isEmpty() && !toDate.isEmpty()) {// passing Both fromDate and toDate values
                 statement.setString(2, fromDate);
                 statement.setString(3, toDate);
             }
-            rs = statement.executeQuery();
 
+            rs = statement.executeQuery();
             while (rs.next()) {
                 attendanceinfo = new AttendanceInfo();
-
                 attendanceinfo.setId(rs.getInt("id"));
                 attendanceinfo.setEmpno(Integer.parseInt(rs.getString("empno")));
                 attendanceinfo.setIsAbsent(rs.getString("isAbsent"));
                 attendanceinfo.setAttendDate(rs.getString("attendDate"));
-
                 list.add(attendanceinfo);
             }
         } catch (Exception e) {
@@ -119,7 +105,6 @@ public class AttendanceDataSource extends WamyConnection {
 
     public boolean updateAttendance(ArrayList<AttendanceInfo> attendanceinfo) {
         boolean updateflag = false;
-
         try {
             PreparedStatement statement = connection.prepareStatement("update absence SET isAbsent = ? , attendDate = ? where id = ? and empno = ? ");
             for (AttendanceInfo emp : attendanceinfo) {
@@ -136,27 +121,4 @@ public class AttendanceDataSource extends WamyConnection {
         }
         return updateflag;
     }
-
-//    public static void main(String[] args) {
-//        AttendanceDataSource obj = new AttendanceDataSource();
-//        
-//        AttendanceInfo attinfo=new AttendanceInfo();
-//        ArrayList<AttendanceInfo> list=new ArrayList<>();
-//        attinfo.setId(1);
-//        attinfo.setEmpno(1);
-//        attinfo.setIsAbsent("false");
-//        attinfo.setAttendDate("2001-11-10");
-//        list.add(attinfo);
-//        boolean isupdated= obj.updateAttendance(list);
-//        System.out.println(isupdated);
-//        
-//        
-////        ArrayList<AttendanceInfo> attendinfo = obj.getEmployeeAttendance("2","", "");
-////        for (AttendanceInfo emp : attendinfo) {
-////            System.out.println(emp.getId());
-////            System.out.println(emp.getEmpno());
-////            System.out.println(emp.getIsAbsent());
-////            System.out.println(emp.getAttendDate());
-////        }
-//    }
 }

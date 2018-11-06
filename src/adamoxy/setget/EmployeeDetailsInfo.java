@@ -5,18 +5,44 @@ package adamoxy.setget;
  * @author adam
  */
 public class EmployeeDetailsInfo {
-//                //(id,empno,NN,gender,address,addressB,phone,phoneB,email,DOB,createdAt) 
-    int id, empno;
-    String address, addressB, phone, phoneB, email, createdAt,NN, DOB, gender,nationalityId;
 
-    public void setNationalityId(String nationalityId){
-        this.nationalityId=nationalityId;
+    private int id, empno;
+    private String address, mStatus, addressB, phone, phoneB, email, createdAt, NN, DOB, age, gender, nationalityId, nationality;
+
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
     }
-    public String getNationalityId(){
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public String getNationality() {
+        return nationality;
+    }
+
+    public void setNationalityId(String nationalityId) {
+        this.nationalityId = nationalityId;
+    }
+
+    public String getNationalityId() {
         return nationalityId;
     }
+
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void setMStatus(String mStatus) {
+        this.mStatus = mStatus;
+    }
+
+    public String getMStatus() {
+        return mStatus;
     }
 
     public int getId() {

@@ -1,11 +1,10 @@
 package adamoxy.control;
 
-import adamoxy.common.log;
 import adamoxy.database.EmployeeDataSource;
 import adamoxy.setget.EmployeeInfo;
 import adamoxy.setget.TempPoJo;
-import adamoxy.setget.UsersInfo;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -13,67 +12,52 @@ import java.util.ArrayList;
  */
 public class EmployeeControle {
 
-    /*
-        public ArrayList<UsersInfo> getAllEmployees() {}
-     */
-    public static ArrayList<UsersInfo> getAllEmployees() {
+    public static ArrayList<EmployeeInfo> getAllEmployees() {
         EmployeeDataSource obj = new EmployeeDataSource();
-        ArrayList list = null;
-        try {
-            list = obj.getAllEmployees();
-
-        } catch (Exception e) {
-            log.writeEvent(e.toString());
-        }
+        ArrayList list = obj.getAllEmployees();
+        obj.close();
         return list;
     }
 
-    /*
-        public UsersInfo getEmployeeInfo(int id) {}
-     */
     public static EmployeeInfo getEmployeeInfoById(int id) {
         EmployeeDataSource obj = new EmployeeDataSource();
-        EmployeeInfo empinfo = null;
-        try {
-            empinfo = obj.getEmployeeInfoById(id);
-        } catch (Exception e) {
-            log.writeEvent(e.toString());
-        }
+        EmployeeInfo empinfo = obj.getEmployeeInfoById(id);
+        obj.close();
         return empinfo;
     }
 
-    /*
-        public boolean insertNewEmployee(UsersInfo userInfo) {}
-     */
     public static TempPoJo insertNewEmployee(EmployeeInfo empinfo) {
         EmployeeDataSource obj = new EmployeeDataSource();
-        TempPoJo temp = new TempPoJo();
-        int flag = 0;
-        try {
-            temp = obj.insertNewEmployee(empinfo);
-
-        } catch (Exception e) {
-            log.writeEvent("EmployeeControle > insertNewEmployee : " + e.toString());
-        }
-
+        TempPoJo temp = obj.insertNewEmployee(empinfo);
+        obj.close();
         return temp;
     }
 
-    /*
-        public boolean UpdateEmployeeInfo(UsersInfo userInfo) {}
-     */
     public static boolean UpdateEmployeeInfo(EmployeeInfo empinfo) {
         EmployeeDataSource obj = new EmployeeDataSource();
-        boolean flag = false;
-        try {
-            flag = obj.UpdateEmployeeInfo(empinfo);
-
-        } catch (Exception e) {
-            log.writeEvent(e.toString());
-        }
+        boolean flag = obj.UpdateEmployeeInfo(empinfo);
+        obj.close();
         return flag;
     }
-    /*
-    
-     */
+
+    public static boolean employeeAttachments(HashMap<String, String> hashmap) {
+        EmployeeDataSource obj = new EmployeeDataSource();
+        boolean flag = obj.employeeAttachments(hashmap);
+        obj.close();
+        return flag;
+    }
+
+    public static ArrayList<HashMap<String, String>> retirementCalculator() {
+        EmployeeDataSource obj = new EmployeeDataSource();
+        ArrayList<HashMap<String, String>> list = obj.retirementCalculator();
+        obj.close();
+        return list;
+    }
+
+    public static HashMap<String, String> retirementCalculatorById(String id) {
+        EmployeeDataSource obj = new EmployeeDataSource();
+        HashMap<String, String> map = obj.retirementCalculatorById(id);
+        obj.close();
+        return map;
+    }
 }

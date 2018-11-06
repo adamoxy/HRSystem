@@ -13,22 +13,6 @@ import java.util.ArrayList;
  * @author adam
  */
 public class UsersDataSource extends WamyConnection {
-//
-//    public static void main(String[] args) {
-//        UsersDataSource obj = new UsersDataSource();
-//        UsersInfo user=obj.CheckUserLogin("editeEmail@mail.com", "123");
-////        UsersInfo user = new UsersInfo();
-////        user.setId(1);
-////        user.setPassword("123");
-////        user.setUsername("adam");
-////        boolean update = obj.UpdateUserPassword("1","123");
-////        System.out.println(update);
-//        System.out.println(user.getId());
-//        
-//        System.out.println(user.getEmail());
-//        
-//        System.out.println(user.getCreatedAt());
-//    }
 
     public UsersInfo CheckUserLogin(String username, String password) {
         ResultSet resultset;
@@ -57,9 +41,7 @@ public class UsersDataSource extends WamyConnection {
     }
 
     public ArrayList<UsersInfo> getAllUsersData() {
-
         ArrayList<UsersInfo> res = new ArrayList<>();
-
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM users");
             ResultSet resultset = statement.executeQuery();

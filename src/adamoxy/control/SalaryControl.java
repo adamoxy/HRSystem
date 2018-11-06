@@ -1,10 +1,8 @@
-
 package adamoxy.control;
 
-import adamoxy.common.log;
 import adamoxy.database.SalaryDataSource;
-import adamoxy.setget.SalaryInfo;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -12,27 +10,38 @@ import java.util.ArrayList;
  */
 public class SalaryControl {
 
-    public static ArrayList<SalaryInfo> getMonthlySalary(String fromDate, String toDate) {
-        SalaryDataSource salary = new SalaryDataSource();
-        ArrayList<SalaryInfo> sal = null;
-        try {
-            sal = salary.getMonthlySalary(fromDate, toDate);
-
-        } catch (Exception e) {
-            log.writeEvent(e.toString());
-        }
+    public static HashMap<String, String> getMonthlySalaryById(String id, String fromDate, String toDate) {
+        SalaryDataSource obj = new SalaryDataSource();
+        HashMap<String, String> sal = obj.getMonthlySalaryById(id, fromDate, toDate);
+        obj.close();
         return sal;
     }
 
-    public static SalaryInfo getMonthlySalaryById(String id, String fromDate, String toDate) {
-        SalaryDataSource salary = new SalaryDataSource();
-        SalaryInfo sal = null;
-        try {
-            sal = salary.getMonthlySalaryById(id, fromDate, toDate);
+    public static ArrayList<HashMap<String, String>> salaryGroups() {
+        SalaryDataSource obj = new SalaryDataSource();
+        ArrayList<HashMap<String, String>> list = obj.salaryGroups();
+        obj.close();
+        return list;
+    }
 
-        } catch (Exception e) {
-            log.writeEvent(e.toString());
-        }
+    public static ArrayList<HashMap<String, String>> getAllMonthlySalary(String fromDate, String toDate) {
+        SalaryDataSource obj = new SalaryDataSource();
+        ArrayList<HashMap<String, String>> sal = obj.getAllMonthlySalary(fromDate, toDate);
+        obj.close();
         return sal;
+    }
+
+    public static HashMap<String, String> getMonthlySalaryTotal(String fromDate, String toDate) {
+        SalaryDataSource obj = new SalaryDataSource();
+        HashMap<String, String> sal = obj.getMonthlySalaryTotal(fromDate, toDate);
+        obj.close();
+        return sal;
+    }
+
+    public static boolean insertNewEmpSalary(HashMap<String, String> map) {
+        SalaryDataSource obj = new SalaryDataSource();
+        boolean flag = obj.insertNewEmpSalary(map);
+        obj.close();
+        return flag;
     }
 }

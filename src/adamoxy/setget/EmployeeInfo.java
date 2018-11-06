@@ -6,22 +6,17 @@ package adamoxy.setget;
  */
 public class EmployeeInfo {
 
-    public String fname, restname, nationality, hireDate, depaprtment, 
-            workTime, jobTitle, status, fromDate, toDate, note, bankname, branch, account;//date
-    public int empno, id;//1,2,3,4
-    public EmployeeDetailsInfo empDetails;//EmployeeDetailsInfo : [ id, empno ,address, addressB, phone, phoneB, email, createdAt,NN, DOB, gender ]
-    public SalaryInfo salary;// SalaryInfo : empno,groupId;
-    // public String ;
+    private String fname, restname, nationality, hireDate, depaprtment,
+            workTime, jobTitle, fromDate, toDate, note, bankname, branch, account;
+    private int id, status;
+    public EmployeeDetailsInfo empDetails;
+    public SalaryInfo salary;
     public JobInfo job;
     public AttachmentInfo attachment;
     public TempPoJo setget;
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public void setEmpno(int empno) {
-        this.empno = empno;
     }
 
     public void setNote(String note) {
@@ -52,7 +47,7 @@ public class EmployeeInfo {
         this.jobTitle = jobTitle;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
@@ -76,10 +71,6 @@ public class EmployeeInfo {
         return id;
     }
 
-    public int getEmpno() {
-        return empno;
-    }
-
     public String getFName() {
         return fname;
     }
@@ -100,7 +91,7 @@ public class EmployeeInfo {
         return jobTitle;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
@@ -119,6 +110,7 @@ public class EmployeeInfo {
     public String getToDate() {
         return toDate;
     }
+
     public void setBankname(String bankname) {
         this.bankname = bankname;
     }

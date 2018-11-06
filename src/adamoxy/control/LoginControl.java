@@ -1,7 +1,6 @@
 package adamoxy.control;
 
 import adamoxy.setget.UsersInfo;
-import adamoxy.common.log;
 import java.util.ArrayList;
 import adamoxy.database.*;
 
@@ -10,95 +9,47 @@ import adamoxy.database.*;
  * @author adam
  */
 public class LoginControl {
-//
-//    public static void main(String[] args) {
-//        UsersInfo uinfo = new UsersInfo();
-//
-//        uinfo.setUsername("ahmed");
-//        uinfo.setEmail("ahmed@hotmail.com");
-//        uinfo.setPassword("123");
-//        uinfo.setStatus("active");
-//        uinfo.setRolid(2);
-//        System.out.println(LoginControl.inserUser(uinfo));
-//
-//    }
 
     public static UsersInfo CheckLogin(String username, String password) {
 
-        UsersDataSource data = new UsersDataSource();
-        UsersInfo info = null;
-        try {
-            info = data.CheckUserLogin(username, password);
-            data.close();
-
-        } catch (Exception e) {
-            log.writeEvent(e.toString());
-        }
+        UsersDataSource obj = new UsersDataSource();
+        UsersInfo info = obj.CheckUserLogin(username, password);
+        obj.close();
         return info;
     }
 
     public static boolean UpdateUserInfo(UsersInfo usersInfo) {
-        UsersDataSource data = new UsersDataSource();
-        boolean res = false;
-        try {
-            res = data.UpdateUserInfo(usersInfo);
-            data.close();
-
-        } catch (Exception e) {
-            log.writeEvent(e.toString());
-        }
+        UsersDataSource obj = new UsersDataSource();
+        boolean res = obj.UpdateUserInfo(usersInfo);
+        obj.close();
         return res;
     }
 
     public static boolean UpdateUserPass(String id, String newPass) {
-        UsersDataSource data = new UsersDataSource();
-        boolean res = false;
-        try {
-            res = data.UpdateUserPassword(id, newPass);
-            data.close();
-
-        } catch (Exception e) {
-            log.writeEvent(e.toString());
-        }
+        UsersDataSource obj = new UsersDataSource();
+        boolean res = obj.UpdateUserPassword(id, newPass);
+        obj.close();
         return res;
     }
 
     public static ArrayList<UsersInfo> getAllUsersData() {
-        UsersDataSource data = new UsersDataSource();
-        ArrayList<UsersInfo> res = null;
-        try {
-            res = data.getAllUsersData();
-            data.close();
-
-        } catch (Exception e) {
-            log.writeEvent(e.toString());
-        }
+        UsersDataSource obj = new UsersDataSource();
+        ArrayList<UsersInfo> res = obj.getAllUsersData();
+        obj.close();
         return res;
     }
 
     public static UsersInfo GetUserInfo(int id) {
-        UsersDataSource data = new UsersDataSource();
-        UsersInfo info = null;
-        try {
-            info = data.getUserInfo(id);
-
-            data.close();
-
-        } catch (Exception e) {
-            log.writeEvent(e.toString());
-        }
+        UsersDataSource obj = new UsersDataSource();
+        UsersInfo info = obj.getUserInfo(id);
+        obj.close();
         return info;
     }
 
     public static boolean inserUser(UsersInfo usersInfo) {
-        boolean flage = false;
-        UsersDataSource data = new UsersDataSource();
-        try {
-            flage = data.inserUser(usersInfo);
-        } catch (Exception e) {
-            log.writeEvent(e.toString());
-        }
-        data.close();
+        UsersDataSource obj = new UsersDataSource();
+        boolean flage = obj.inserUser(usersInfo);
+        obj.close();
         return flage;
     }
 }

@@ -7,11 +7,11 @@ package adamoxy.setget;
  */
 public class AttendanceInfo {
     
-    public int empno,id;//1,2,3,4
+    public int empno,id;
     
     String isAbsent;
     
-    public String attendDate;//date
+    public String attendDate;
     
     public int getId() {
         return id;

@@ -6,13 +6,9 @@ package adamoxy.setget;
  * @author adam
  */
 public class UsersInfo {
-//username email password rolid status createdAt
-    public String username;
-    public String email;
-    public String password;
+
+    public String username,email,password,status,createdAt;//date
     public int rolid,id;//1,2,3,4
-    public String status;//active or inactive
-    public String createdAt;//date
 
     public int getId() {
         return id;

@@ -1,4 +1,3 @@
-
 package adamoxy.setget;
 
 /**
@@ -6,51 +5,87 @@ package adamoxy.setget;
  * @author adam
  */
 public class holyDayInfo {
-//username email password rolid status createdAt
-    public String username;
-    public String email;
-    public String password;
-    public int rolid,id;//1,2,3,4
-    public String status;//active or inactive
-    public String createdAt;//date
 
-    public int getId() {
-        return id;
+    private String empno, fname, restname, type, period, startat, endat, summry, realperiod, rest, status;
+
+    public void setEmpno(String empno) {
+        this.empno = empno;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-    public int getRolid() {
-        return rolid;
+    public String getEmpno() {
+        return empno;
     }
 
-    public void setRolid(int rolid) {
-        this.rolid = rolid;
+    public void setFname(String fname) {
+        this.fname = fname;
     }
 
-    public String getUsername() {
-        return username;
+    public String getFname() {
+        return fname;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setRestname(String restname) {
+        this.restname = restname;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public String getRestname() {
+        return restname;
     }
 
-    public String getPassword() {
-        return password;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getEmail() {
-        return email;
+    public String getType() {
+        return type;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setPeriod(String period) {
+        this.period = period;
+    }
+
+    public String getPeriod() {
+        return period;
+    }
+
+    public void setStartat(String startat) {
+        this.startat = startat;
+    }
+
+    public String getStartat() {
+        return startat;
+    }
+
+    public void setEndat(String endat) {
+        this.endat = endat;
+    }
+
+    public String getEndat() {
+        return endat;
+    }
+
+    public void setSummry(String summry) {
+        this.summry = summry;
+    }
+
+    public String getSummry() {
+        return summry;
+    }
+
+    public void setRealperiod(String realperiod) {
+        this.realperiod = realperiod;
+    }
+
+    public String getRealperiod() {
+        return realperiod;
+    }
+
+    public void setRest(String rest) {
+        this.rest = rest;
+    }
+
+    public String getRest() {
+        return rest;
     }
 
     public void setStatus(String status) {
@@ -59,13 +94,5 @@ public class holyDayInfo {
 
     public String getStatus() {
         return status;
-    }
-
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public String getCreatedAt() {
-        return createdAt;
     }
 }

@@ -1,10 +1,9 @@
 package adamoxy.control;
 
-import adamoxy.common.log;
 import adamoxy.database.EmployeeDtailsDataSource;
 import adamoxy.setget.EmployeeDetailsInfo;
-import adamoxy.setget.EmployeeInfo;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -12,79 +11,62 @@ import java.util.ArrayList;
  */
 public class EmployeeDtailsControle {
 
-    /*    public ArrayList<EmployeeDetailsInfo> getAllEmployeeDetails() {
-     */
-    public ArrayList<EmployeeDetailsInfo> getAllEmployeeDetails() {
+    public static ArrayList<EmployeeDetailsInfo> getAllEmployeeDetails() {
         EmployeeDtailsDataSource obj = new EmployeeDtailsDataSource();
-        ArrayList<EmployeeDetailsInfo> empdetails = null;
-
-        try {
-            empdetails = obj.getAllEmployeeDetails();
-        } catch (Exception e) {
-            log.writeEvent("EmployeeDtailsControle > getAllEmployeeDetails :" + e.toString());
-        }
+        ArrayList<EmployeeDetailsInfo> empdetails = obj.getAllEmployeeDetails();
+        obj.close();
         return empdetails;
 
     }
 
-    /*
-        public EmployeeDetailsInfo getEmployeeDetails(String id){}
-     */
     public static EmployeeDetailsInfo getEmployeeDetails(String id) {
         EmployeeDtailsDataSource obj = new EmployeeDtailsDataSource();
-        EmployeeDetailsInfo empdetails = null;
-        try {
-            empdetails = obj.getEmployeeDetails(id);
-
-        } catch (Exception e) {
-            log.writeEvent("EmployeeDtailsControle > getEmployeeDetails :" + e.toString());
-        }
+        EmployeeDetailsInfo empdetails = obj.getEmployeeDetails(id);
+        obj.close();
         return empdetails;
     }
 
-    /*
-            public boolean insertEmployeeDetails(EmployeeDetailsInfo emp){}
-     */
-    public static boolean insertEmployeeDetails(EmployeeDetailsInfo emp) {
+    public static boolean insertEmployeeDetails(EmployeeDetailsInfo emp, String id) {
         EmployeeDtailsDataSource obj = new EmployeeDtailsDataSource();
-        boolean flag = false;
-        try {
-            flag = obj.insertEmployeeDetails(emp);
-
-        } catch (Exception e) {
-            log.writeEvent("EmployeeDtailsControle > insertEmployeeDetails :" + e.toString());
-        }
+        boolean flag = obj.insertEmployeeDetails(emp, id);
+        obj.close();
         return flag;
     }
 
-    /*
-            public boolean updateEmployeeDetails(EmployeeDetailsInfo emp){}
-     */
     public static boolean updateEmployeeDetails(EmployeeDetailsInfo emp) {
         EmployeeDtailsDataSource obj = new EmployeeDtailsDataSource();
-        boolean flag = false;
-        try {
-            flag = obj.updateEmployeeDetails(emp);
-
-        } catch (Exception e) {
-            log.writeEvent("EmployeeDtailsControle > updateEmployeeDetails :" + e.toString());
-        }
+        boolean flag = obj.updateEmployeeDetails(emp);
+        obj.close();
         return flag;
     }
 
-    /*    public boolean registerEmployeeToDepartmente(EmployeeInfo emp) {
-     */
-    public static boolean registerEmployeeToDepartmente(EmployeeInfo emp) {
-        boolean flag = false;
+    public static HashMap<String, String> departmentAndJob(String id) {
         EmployeeDtailsDataSource obj = new EmployeeDtailsDataSource();
-        try {
+        HashMap<String, String> map = obj.departmentAndJob(id);
+        obj.close();
+        return map;
+    }
 
-        } catch (Exception e) {
-            log.writeEvent("EmployeeDtailsControle > registerEmployeeToDepartmente :" + e.toString());
-        }
+    public static ArrayList<HashMap<String, String>> EmployeesGeneralInfo() {
+        EmployeeDtailsDataSource obj = new EmployeeDtailsDataSource();
+        ArrayList<HashMap<String, String>> list = obj.ListAllEmployeesGeneralInfo();
+        obj.close();
+        return list;
+
+    }
+
+    public static ArrayList<HashMap<String, String>> getMaritalStatus() {
+        EmployeeDtailsDataSource obj = new EmployeeDtailsDataSource();
+        ArrayList<HashMap<String, String>> list = obj.getMaritalStatus();
+        obj.close();
+        return list;
+    }
+
+    public static boolean insertMaritalStatus(String Marital, String Description) {
+        EmployeeDtailsDataSource obj = new EmployeeDtailsDataSource();
+        boolean flag = obj.insertMaritalStatus(Marital, Description);
+        obj.close();
         return flag;
     }
 
-    /*
-     */
 }

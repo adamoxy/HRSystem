@@ -5,7 +5,6 @@ package adamoxy.setget;
  * @author adam
  */
 // THIS TO HELP YOU TO CARRY ANY LOAD AS YOU HAD NO SET AND GET FOR IT 
-// YOU CAN 'T MAKE SET GET CLASS FOR EVERY COLUMN
 public class TempPoJo {
 
     public String STRING;

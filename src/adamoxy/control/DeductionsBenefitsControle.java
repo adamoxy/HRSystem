@@ -1,7 +1,5 @@
-
 package adamoxy.control;
 
-import adamoxy.common.log;
 import adamoxy.database.DeductionsBenefits;
 
 /**
@@ -10,44 +8,24 @@ import adamoxy.database.DeductionsBenefits;
  */
 public class DeductionsBenefitsControle {
 
-    /*    public String[] getAllDeductionsBenefits() {}
-     */
     public static String[] getAllDeductionsBenefits() {
         DeductionsBenefits obj = new DeductionsBenefits();
-        String[] deductionsBenefits = null;
-        try {
-            deductionsBenefits = obj.getAllDeductionsBenefits();
-
-        } catch (Exception e) {
-            log.writeEvent(e.toString());
-        }
+        String[] deductionsBenefits = obj.getAllDeductionsBenefits();
+        obj.close();
         return deductionsBenefits;
     }
 
-    /*    public String[] getOnlyDeductions() {}
-     */
     public static String[] getOnlyDeductions() {
         DeductionsBenefits obj = new DeductionsBenefits();
-        String[] deductions = null;
-        try {
-            deductions = obj.getOnlyDeductions();
-
-        } catch (Exception e) {
-            log.writeEvent(e.toString());
-        }
+        String[] deductions = obj.getOnlyDeductions();
+        obj.close();
         return deductions;
     }
 
-    /*        public String[] getOnlyBenefits() {}
-     */
     public static String[] getOnlyBenefits() {
         DeductionsBenefits obj = new DeductionsBenefits();
         String[] benefits = obj.getOnlyBenefits();
-        try {
-
-        } catch (Exception e) {
-            log.writeEvent(e.toString());
-        }
+        obj.close();
         return benefits;
     }
 }
